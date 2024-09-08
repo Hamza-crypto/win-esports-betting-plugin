@@ -339,7 +339,6 @@ class We_Blocks
         <!-- Swiper main container -->
         <div class="row">
 
-
             <swiper-container class="mySwiper" slides-per-view="4" autoplay-delay="1000" speed="2000" loop="true">
                 <!-- Swiper wrapper -->
                 <?php foreach ($posts as $post): ?>
