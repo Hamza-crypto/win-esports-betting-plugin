@@ -1,0 +1,14 @@
+.webs-review-container h2 {
+    margin: 25px 0 15px 0;
+    text-transform: uppercase;
+}
+
+.webs-review-container br {
+    display: none;
+}
+
+.webs-review-container p {
+    margin: 0;
+    line-height: 1.8rem;
+    font-size: 1rem;
+}

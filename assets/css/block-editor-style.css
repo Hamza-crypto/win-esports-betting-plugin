@@ -1,0 +1,34 @@
+.is-root-container {
+    padding: 40px;
+}
+
+div[data-type*="carbon-fields/"] {
+    border: 1px solid black;
+    padding: 20px;
+    margin-bottom: 30px !important;
+    background-color: whitesmoke;
+}
+
+/*div[data-type="carbon-fields/container-with-sidebar"] {*/
+/*    display: flex;*/
+/*    flex-direction: row;*/
+/*}*/
+
+/*div[data-type="carbon-fields/container-with-sidebar"] > .cf-block__inner-blocks {*/
+/*    margin-left: 0;*/
+/*    margin-right: 20px;*/
+/*    flex-grow: 1;*/
+/*}*/
+
+/*div[data-type="carbon-fields/container-with-sidebar"] > .cf-block__fields {*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*    align-items: start;*/
+/*    flex-grow: 1;*/
+/*}*/
+
+/*div[data-type="carbon-fields/container-with-sidebar"] > .cf-block__fields .cf-field {*/
+/*    width: 100%;*/
+/*    display: block;*/
+/*    flex: unset;*/
+/*}*/
