@@ -487,7 +487,7 @@ class We_Blocks
 
                             <!-- Bonus button -->
                             <a class="btn btn-primary text-uppercase fw-bold my-2 text-decoration-none"
-                                href="<?= $bonus['link'] ?>" target="_blank">
+                                href="<?= $bonus['link'] ?>">
                                 Get bonus
                             </a>
 

@@ -674,7 +674,7 @@ class We_Widgets
                 </div>
 
                 <a class="btn btn-primary text-uppercase fw-bold my-2 text-decoration-none" href="<?= $bonus['link'] ?>"
-                    target="_blank">
+                    >
 
                     Get bonus
 
@@ -816,7 +816,7 @@ class We_Widgets
         </div>
 
                 <a class="btn btn-primary text-uppercase fw-bold my-2 text-decoration-none" href="<?= $bonus['link'] ?>"
-                    target="_blank">
+                    >
 
                     Get bonus
 

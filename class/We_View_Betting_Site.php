@@ -2,105 +2,100 @@
 
 
 
-if ( ! defined( 'ABSPATH' ) ) {
+if (! defined('ABSPATH')) {
 
-	die();
+    die();
 
 }
 
 
 
 use We_M_Betting_Site as BettingSite;
-
 use We_Cpt_Betting_Site_Meta_Keys as MetaKeys;
-
 use We_Taxonomy as Taxonomy;
-
 use We_Widgets as Widgets;
 
+class We_View_Betting_Site
+{
+    public static array $categories;
 
+    public static array $ratings;
 
-class We_View_Betting_Site {
+    public static array $payment_methods;
 
+    public static array $software_providers;
 
+    public static array $all_bonus;
 
-	public static array $categories;
+    public static string $logo_src;
 
-	public static array $ratings;
+    public static string $logo_bg_color;
 
-	public static array $payment_methods;
-
-	public static array $software_providers;
-
-	public static array $all_bonus;
-
-	public static string $logo_src;
-
-	public static string $logo_bg_color;
-
-	public static array $top_betting_sites;
+    public static array $top_betting_sites;
 
 
 
-	/**
+    /**
 
-	 * @param We_M_Betting_Site $betting_site
+     * @param We_M_Betting_Site $betting_site
 
-	 *
+     *
 
-	 * @return void
+     * @return void
 
-	 */
+     */
 
-	public static function init( BettingSite $betting_site ): void {
+    public static function init(BettingSite $betting_site): void
+    {
 
-		self::$top_betting_sites  = We_M_Betting_Site::getAll( array() );
+        self::$top_betting_sites  = We_M_Betting_Site::getAll(array());
 
-		self::$logo_src           = get_the_post_thumbnail_url( $betting_site->post );
+        self::$logo_src           = get_the_post_thumbnail_url($betting_site->post);
 
-		self::$logo_bg_color      = $betting_site->get_logo_bg_color();
+        self::$logo_bg_color      = $betting_site->get_logo_bg_color();
 
-		self::$ratings            = $betting_site->get_ratings();
+        self::$ratings            = $betting_site->get_ratings();
 
-		self::$categories         = $betting_site->get_categories();
+        self::$categories         = $betting_site->get_categories();
 
-		self::$payment_methods    = $betting_site->get_payment_methods();
+        self::$payment_methods    = $betting_site->get_payment_methods();
 
-		self::$software_providers = $betting_site->get_software_providers();
+        self::$software_providers = $betting_site->get_software_providers();
 
-		self::$all_bonus          = array();
+        self::$all_bonus          = array();
 
-		foreach ( self::$categories as $category ) {
+        foreach (self::$categories as $category) {
 
-			$bonus = $betting_site->get_featured_bonus( $category['id'] );
+            $bonus = $betting_site->get_featured_bonus($category['id']);
 
-			if ( ! empty( $bonus ) ) {
+            if (! empty($bonus)) {
 
-				self::$all_bonus[] = $bonus;
+                self::$all_bonus[] = $bonus;
 
-			}
+            }
 
-		}
+        }
 
-	}
+    }
 
 
 
-	/**
+    /**
 
-	 * @param We_M_Betting_Site $betting_site
+     * @param We_M_Betting_Site $betting_site
 
-	 *
+     *
 
-	 * @return false|string
+     * @return false|string
 
-	 */
+     */
 
-	public static function header( BettingSite $betting_site ): false|string {
+    public static function header(BettingSite $betting_site): false|string
+    {
 
-		ob_start();
+        ob_start();
 
-		?>
+        ?>
 
 <style>
 .we-bs-raring-stars-container {
@@ -202,7 +197,7 @@ class We_View_Betting_Site {
 
     <!-- Bonus Categories & Bonus Features -->
 
-    <?php if ( ! empty( self::$all_bonus ) ): ?>
+    <?php if (! empty(self::$all_bonus)): ?>
 
     <div class="col-12 col-sm-8 col-md-5 col-lg-4 col-xl-5">
 
@@ -216,9 +211,9 @@ class We_View_Betting_Site {
 
                     <?php $checked = true;
 
-								foreach ( self::$all_bonus as $bonus ): ?>
+        foreach (self::$all_bonus as $bonus): ?>
 
-                    <?php if ( ! empty( $bonus['category'] ) ): ?>
+                    <?php if (! empty($bonus['category'])): ?>
 
                     <input type="radio" class="btn-check webs-category-btn" name="webs-btn-category-name"
                         id="webs-btn-category-btn-<?= $bonus['category'][0]['id'] ?>" autocomplete="off"
@@ -231,15 +226,15 @@ class We_View_Betting_Site {
 
                         <?php
 
-											$term = get_term( $bonus['category'][0]['id'], $bonus['category'][0]['subtype'] );
+                    $term = get_term($bonus['category'][0]['id'], $bonus['category'][0]['subtype']);
 
-											if ( ! empty( $term ) && $term instanceof WP_Term ) :?>
+                        if (! empty($term) && $term instanceof WP_Term) :?>
 
                         <span class="fw-bold text-uppercase"><?= $term->name ?></span>
 
                         <?php endif;
 
-											$checked = false; ?>
+                        $checked = false; ?>
 
                     </label>
 
@@ -261,14 +256,14 @@ class We_View_Betting_Site {
 
                 <?php $show = true;
 
-							foreach ( self::$all_bonus as $bonus ): ?>
+        foreach (self::$all_bonus as $bonus): ?>
 
-                <?php if ( ! empty( $bonus['features'] ) ): ?>
+                <?php if (! empty($bonus['features'])): ?>
 
                 <ul class="<?= $show ? '' : 'd-none' ?> webs-category-features mt-3"
                     id="webs-category-features-<?= $bonus['category'][0]['id'] ?>">
 
-                    <?php foreach ( $bonus['features'] as $feature ): ?>
+                    <?php foreach ($bonus['features'] as $feature): ?>
 
                     <li class="fs-6"><?= $feature ?></li>
 
@@ -278,7 +273,7 @@ class We_View_Betting_Site {
 
                 <?php endif;
 
-								$show = false; ?>
+            $show = false; ?>
 
                 <?php endforeach; ?>
 
@@ -298,12 +293,12 @@ class We_View_Betting_Site {
 
                 <?php $first = true;
 
-							foreach ( self::$all_bonus as $bonus ): ?>
+        foreach (self::$all_bonus as $bonus): ?>
 
                 <div class="webs-bonus-title <?= $first ? '' : 'd-none' ?>"
                     id="webs-category-title-<?= $bonus['category'][0]['id'] ?>">
 
-                    <?php $term = get_term( $bonus['category'][0]['id'], $bonus['category'][0]['subtype'] ); ?>
+                    <?php $term = get_term($bonus['category'][0]['id'], $bonus['category'][0]['subtype']); ?>
 
                     <div class="fw-bold fs-6 text-uppercase text-black-50">
 
@@ -333,25 +328,25 @@ class We_View_Betting_Site {
 
         <?php $first = true;
 
-					foreach ( self::$all_bonus as $bonus ): ?>
+        foreach (self::$all_bonus as $bonus): ?>
 
         <div class="d-grid <?= $first ? '' : 'd-none' ?> webs-bonus-cta"
             id="webs-bonus-cta-<?= $bonus['category'][0]['id'] ?>">
 
             <a class="btn btn-outline-dark" style="border-style: dashed; text-decoration: none"
-                href="<?= ! empty( $bonus['link'] ) ? $bonus['link'] : '' ?>" target="_blank"
+                href="<?= ! empty($bonus['link']) ? $bonus['link'] : '' ?>" 
                 data-value="<?= $bonus['code'] ?>">
 
                 <span style="vertical-align: -webkit-baseline-middle;">
 
-                    <?= str_repeat( '*  ', 6 ) ?>
+                    <?= str_repeat('*  ', 6) ?>
 
                 </span>
 
             </a>
 
-            <a class="btn btn-primary text-uppercase mt-2 border-0 fw-semibold text-decoration-none" target="_blank"
-                href="<?= ! empty( $bonus['link'] ) ? $bonus['link'] : '' ?>">
+            <a class="btn btn-primary text-uppercase mt-2 border-0 fw-semibold text-decoration-none" 
+                href="<?= ! empty($bonus['link']) ? $bonus['link'] : '' ?>">
 
                 <?= $betting_site->get_cta_label() ?>
 
@@ -453,29 +448,30 @@ class We_View_Betting_Site {
 
 <?php
 
-		return ob_get_clean();
+        return ob_get_clean();
 
 
 
-	}
+    }
 
 
 
-	/**
+    /**
 
-	 * @param We_M_Betting_Site $betting_site
+     * @param We_M_Betting_Site $betting_site
 
-	 *
+     *
 
-	 * @return false|string
+     * @return false|string
 
-	 */
+     */
 
-	public static function summary( BettingSite $betting_site ): false|string {
+    public static function summary(BettingSite $betting_site): false|string
+    {
 
-		ob_start();
+        ob_start();
 
-		?>
+        ?>
 
 <style>
 .nav.nav-tabs .nav-item .nav-link:hover,
@@ -525,7 +521,7 @@ class We_View_Betting_Site {
 
             </li>
 
-            <?php if ( ! empty( $payment_methods ) ): ?>
+            <?php if (! empty($payment_methods)): ?>
 
             <li class="nav-item" role="presentation">
 
@@ -568,13 +564,13 @@ class We_View_Betting_Site {
 
                         <?php
 
-								$pros = $betting_site->get_review_pros();
+                                $pros = $betting_site->get_review_pros();
 
-								$cons = $betting_site->get_review_cons();
+        $cons = $betting_site->get_review_cons();
 
-								if ( ! empty( $pros ) && ! empty( $cons ) ):
+        if (! empty($pros) && ! empty($cons)):
 
-									?>
+            ?>
 
                         <div class="row row-cols-auto">
 
@@ -590,7 +586,7 @@ class We_View_Betting_Site {
 
                             <div class="col">
 
-                                <?php foreach ( $pros as $pro_data_set ): ?>
+                                <?php foreach ($pros as $pro_data_set): ?>
 
                                 <div class="fs-6">
 
@@ -611,7 +607,7 @@ class We_View_Betting_Site {
 
                             <div class="col">
 
-                                <?php foreach ( $cons as $con_data_set ): ?>
+                                <?php foreach ($cons as $con_data_set): ?>
 
                                 <div class="fs-6">
 
@@ -646,23 +642,23 @@ class We_View_Betting_Site {
 
                         <div class="row row-cols-auto" id="webs-info">
 
-                            <?= self::view_payment_methods( $betting_site, 0 ) ?>
+                            <?= self::view_payment_methods($betting_site, 0) ?>
 
-                            <?= self::view_license( $betting_site ) ?>
+                            <?= self::view_license($betting_site) ?>
 
-                            <?= self::view_withdrawal( $betting_site ); ?>
+                            <?= self::view_withdrawal($betting_site); ?>
 
-                            <?= self::view_apps( $betting_site ); ?>
+                            <?= self::view_apps($betting_site); ?>
 
-                            <?= self::view_award( $betting_site ); ?>
+                            <?= self::view_award($betting_site); ?>
 
                             <?php
 
-									$company = $betting_site->get_company();
+            $company = $betting_site->get_company();
 
-									if ( ! empty( $company ) ):
+        if (! empty($company)):
 
-										?>
+            ?>
 
                             <div class="col pt-3">
 
@@ -685,11 +681,11 @@ class We_View_Betting_Site {
 
                             <?php
 
-									$founded = $betting_site->get_founded();
+                                    $founded = $betting_site->get_founded();
 
-									if ( ! empty( $founded ) ):
+        if (! empty($founded)):
 
-										?>
+            ?>
 
                             <div class="col pt-3">
 
@@ -712,11 +708,11 @@ class We_View_Betting_Site {
 
                             <?php
 
-									$website = $betting_site->get_website();
+                                    $website = $betting_site->get_website();
 
-									if ( ! empty( $website ) ):
+        if (! empty($website)):
 
-										?>
+            ?>
 
                             <div class="col pt-3">
 
@@ -739,11 +735,11 @@ class We_View_Betting_Site {
 
                             <?php
 
-									$available_languages = $betting_site->get_available_languages();
+                                    $available_languages = $betting_site->get_available_languages();
 
-									if ( ! empty( $available_languages ) ):
+        if (! empty($available_languages)):
 
-										?>
+            ?>
 
                             <div class="col pt-3">
 
@@ -766,7 +762,7 @@ class We_View_Betting_Site {
 
                                             </div>
 
-                                            <?php if ( ! empty( $available_languages[1] ) ): ?>
+                                            <?php if (! empty($available_languages[1])): ?>
 
                                             <div style="height: 53px; width: 53px; border-color: var(--bs-border-color-translucent);"
                                                 class="border border-1 d-flex flex-row justify-content-center align-items-center me-1">
@@ -775,7 +771,7 @@ class We_View_Betting_Site {
 
                                             </div>
 
-                                            <?php if ( ! empty( $available_languages[2] ) ): ?>
+                                            <?php if (! empty($available_languages[2])): ?>
 
                                             <div style="height: 53px; width: 53px; border-color: var(--bs-border-color-translucent);"
                                                 class="border border-1 d-flex flex-row justify-content-center align-items-center me-1">
@@ -792,11 +788,11 @@ class We_View_Betting_Site {
 
 
 
-                                        <?php if ( count( $available_languages ) > 3 ): ?>
+                                        <?php if (count($available_languages) > 3): ?>
 
                                         <div class="d-none row row-cols-3" id="webs-x-al">
 
-                                            <?php for ( $i = 3; $i < count( $available_languages ); $i ++ ): ?>
+                                            <?php for ($i = 3; $i < count($available_languages); $i++): ?>
 
                                             <div style="height: 53px; width: 53px; border-color: var(--bs-border-color-translucent);"
                                                 class="border border-1 d-flex flex-row justify-content-center align-items-center me-1 mt-1">
@@ -833,11 +829,11 @@ class We_View_Betting_Site {
 
                             <?php
 
-									$customer_support = $betting_site->get_customer_support();
+                                    $customer_support = $betting_site->get_customer_support();
 
-									if ( ! empty( $customer_support ) ):
+        if (! empty($customer_support)):
 
-										?>
+            ?>
 
                             <div class="col pt-3">
 
@@ -852,17 +848,17 @@ class We_View_Betting_Site {
 
                                     <?php
 
-												$customer_support_items = array();
+                    $customer_support_items = array();
 
-												foreach ( $customer_support as $customer_support_data_set ) {
+            foreach ($customer_support as $customer_support_data_set) {
 
-													$customer_support_items[] = $customer_support_data_set['support'];
+                $customer_support_items[] = $customer_support_data_set['support'];
 
-												}
+            }
 
-												?>
+            ?>
 
-                                    <?= join( ', ', $customer_support_items ) ?>
+                                    <?= join(', ', $customer_support_items) ?>
 
                                 </div>
 
@@ -872,11 +868,11 @@ class We_View_Betting_Site {
 
                             <?php
 
-									$email = $betting_site->get_email();
+                                    $email = $betting_site->get_email();
 
-									if ( ! empty( $email ) ):
+        if (! empty($email)):
 
-										?>
+            ?>
 
                             <div class="col pt-3">
 
@@ -899,11 +895,11 @@ class We_View_Betting_Site {
 
                             <?php
 
-									$phone = $betting_site->get_phone();
+                                    $phone = $betting_site->get_phone();
 
-									if ( ! empty( $phone ) ):
+        if (! empty($phone)):
 
-										?>
+            ?>
 
                             <div class="col pt-3">
 
@@ -926,11 +922,11 @@ class We_View_Betting_Site {
 
                             <?php
 
-									$verified_by = $betting_site->get_verified_by();
+                                    $verified_by = $betting_site->get_verified_by();
 
-									if ( ! empty( $verified_by ) ):
+        if (! empty($verified_by)):
 
-										?>
+            ?>
 
                             <div class="col pt-3">
 
@@ -953,11 +949,11 @@ class We_View_Betting_Site {
 
                             <?php
 
-									$safety_score = $betting_site->get_safety_score();
+                                    $safety_score = $betting_site->get_safety_score();
 
-									if ( ! empty( $safety_score ) ):
+        if (! empty($safety_score)):
 
-										?>
+            ?>
 
                             <div class="col pt-3">
 
@@ -980,11 +976,11 @@ class We_View_Betting_Site {
 
                             <?php
 
-									$accepted_cryptos = $betting_site->get_accepted_crypto();
+                                    $accepted_cryptos = $betting_site->get_accepted_crypto();
 
-									if ( ! empty( $accepted_cryptos ) ):
+        if (! empty($accepted_cryptos)):
 
-										?>
+            ?>
 
                             <div class="col pt-3">
 
@@ -999,23 +995,23 @@ class We_View_Betting_Site {
 
                                     <?php
 
-												$accepted_cryptos_list = array();
+                    $accepted_cryptos_list = array();
 
-												foreach ( $accepted_cryptos as $crypto_data_set ) {
+            foreach ($accepted_cryptos as $crypto_data_set) {
 
-													$crypto = get_term( $crypto_data_set['id'], $crypto_data_set['subtype'] );
+                $crypto = get_term($crypto_data_set['id'], $crypto_data_set['subtype']);
 
-													if ( ! empty( $crypto ) && $crypto instanceof WP_Term ) {
+                if (! empty($crypto) && $crypto instanceof WP_Term) {
 
-														$accepted_cryptos_list[] = $crypto->name;
+                    $accepted_cryptos_list[] = $crypto->name;
 
-													}
+                }
 
-												}
+            }
 
-												?>
+            ?>
 
-                                    <div><?= join( ', ', $accepted_cryptos_list ) ?></div>
+                                    <div><?= join(', ', $accepted_cryptos_list) ?></div>
 
                                 </div>
 
@@ -1025,11 +1021,11 @@ class We_View_Betting_Site {
 
                             <?php
 
-									$software_providers = self::$software_providers;
+                                    $software_providers = self::$software_providers;
 
-									if ( ! empty( $software_providers ) ):
+        if (! empty($software_providers)):
 
-										?>
+            ?>
 
                             <div class="col pt-3">
 
@@ -1055,7 +1051,7 @@ class We_View_Betting_Site {
 
                                             </div>
 
-                                            <?php if ( count( $software_providers ) > 1 ): ?>
+                                            <?php if (count($software_providers) > 1): ?>
 
                                             <div style="height: 53px; width: 53px; border-color: var(--bs-border-color-translucent);"
                                                 class="border border-1 d-flex flex-row justify-content-center align-items-center me-1">
@@ -1067,7 +1063,7 @@ class We_View_Betting_Site {
 
                                             </div>
 
-                                            <?php if ( count( $software_providers ) > 2 ): ?>
+                                            <?php if (count($software_providers) > 2): ?>
 
                                             <div style="height: 53px; width: 53px; border-color: var(--bs-border-color-translucent);"
                                                 class="border border-1 d-flex flex-row justify-content-center align-items-center me-1">
@@ -1085,16 +1081,16 @@ class We_View_Betting_Site {
 
                                         </div>
 
-                                        <?php if ( count( $software_providers ) > 3 ): ?>
+                                        <?php if (count($software_providers) > 3): ?>
 
                                         <div class="d-none row row-cols-3" id="webs-x-sp">
 
-                                            <?php for ( $i = 3; $i < count( $software_providers ); $i ++ ): ?>
+                                            <?php for ($i = 3; $i < count($software_providers); $i++): ?>
 
                                             <div style="height: 53px; width: 53px; border-color: var(--bs-border-color-translucent);"
                                                 class="border border-1 d-flex flex-row justify-content-center align-items-center me-1 mt-1">
 
-                                                <?php if ( ! empty( $software_providers[ $i ]['icon'] ) ): ?>
+                                                <?php if (! empty($software_providers[ $i ]['icon'])): ?>
 
                                                 <img src="<?= $software_providers[ $i ]['icon'] ?>"
                                                     alt="<?= $software_providers[ $i ]['name'] ?>"
@@ -1131,11 +1127,11 @@ class We_View_Betting_Site {
 
                             <?php
 
-									$number_of_slots = $betting_site->get_slots_number();
+                                    $number_of_slots = $betting_site->get_slots_number();
 
-									if ( ! empty( $number_of_slots ) ):
+        if (! empty($number_of_slots)):
 
-										?>
+            ?>
 
                             <div class="col pt-3">
 
@@ -1164,11 +1160,11 @@ class We_View_Betting_Site {
 
                         <?php
 
-								$ratings = self::$ratings;
+                                $ratings = self::$ratings;
 
-								if ( ! empty( $ratings ) ):
+        if (! empty($ratings)):
 
-									?>
+            ?>
 
                         <div class="mt-4 mt-lg-0 d-flex justify-content-between">
 
@@ -1196,65 +1192,65 @@ class We_View_Betting_Site {
 
                         <ul class="p-0 m-0" style="list-style: none">
 
-                            <?php foreach ( $ratings as $key => $value ): ?>
+                            <?php foreach ($ratings as $key => $value): ?>
 
                             <?php
 
-											$ratings_field_map = array(
+                    $ratings_field_map = array(
 
-												'bonus_offer'          => array(
+                        'bonus_offer'          => array(
 
-													'label' => 'Bonus Offers & Free Bets',
+                            'label' => 'Bonus Offers & Free Bets',
 
-													'icon'  => 'review-icon-bonus.svg'
+                            'icon'  => 'review-icon-bonus.svg'
 
-												),
+                        ),
 
-												'usability'            => array(
+                        'usability'            => array(
 
-													'label' => 'Usability, Look & Feel',
+                            'label' => 'Usability, Look & Feel',
 
-													'icon'  => 'review-icon-usability.svg'
+                            'icon'  => 'review-icon-usability.svg'
 
-												),
+                        ),
 
-												'payment_methods'      => array(
+                        'payment_methods'      => array(
 
-													'label' => 'Payment Methods',
+                            'label' => 'Payment Methods',
 
-													'icon'  => 'review-icon-payment.svg'
+                            'icon'  => 'review-icon-payment.svg'
 
-												),
+                        ),
 
-												'customer_service'     => array(
+                        'customer_service'     => array(
 
-													'label' => 'Customer Service',
+                            'label' => 'Customer Service',
 
-													'icon'  => 'review-icon-customer-service.svg'
+                            'icon'  => 'review-icon-customer-service.svg'
 
-												),
+                        ),
 
-												'license_and_security' => array(
+                        'license_and_security' => array(
 
-													'label' => 'Licence & Security',
+                            'label' => 'Licence & Security',
 
-													'icon'  => 'review-icon-licensing.svg'
+                            'icon'  => 'review-icon-licensing.svg'
 
-												),
+                        ),
 
-												'rewards_program_key'  => array(
+                        'rewards_program_key'  => array(
 
-													'label' => 'Rewards & Loyalty Program',
+                            'label' => 'Rewards & Loyalty Program',
 
-													'icon'  => 'review-icon-rewards.svg'
+                            'icon'  => 'review-icon-rewards.svg'
 
-												)
+                        )
 
-											);
+                    );
 
-											?>
+                                ?>
 
-                            <?php if ( ! empty( $ratings_field_map[ $key ] ) ): ?>
+                            <?php if (! empty($ratings_field_map[ $key ])): ?>
 
                             <li style="margin-top: 20px">
 
@@ -1289,7 +1285,7 @@ class We_View_Betting_Site {
                                     <div class="progress" style=" height: 3px">
 
                                         <div class="progress-bar progress-bar-striped bg-info"
-                                            style="width:<?= is_numeric( $value ) ? ( $value / 5 ) * 100 : 0 ?>%;">
+                                            style="width:<?= is_numeric($value) ? ($value / 5) * 100 : 0 ?>%;">
                                         </div>
 
                                     </div>
@@ -1312,7 +1308,7 @@ class We_View_Betting_Site {
 
             </div>
 
-            <?php if ( ! empty( $payment_methods ) ): ?>
+            <?php if (! empty($payment_methods)): ?>
 
             <div class="tab-pane fade" id="payments-tab-pane" role="tabpanel" aria-labelledby="payments-tab"
                 tabindex="0">
@@ -1353,16 +1349,16 @@ class We_View_Betting_Site {
 
                                 <tbody class="table-group-divider">
 
-                                    <?php foreach ( $payment_methods as $payment_method ): ?>
+                                    <?php foreach ($payment_methods as $payment_method): ?>
 
-                                    <?php if ( ! empty( $payment_method['image'] ) ): ?>
+                                    <?php if (! empty($payment_method['image'])): ?>
 
                                     <tr>
 
                                         <td class="text-center fs-6">
 
                                             <img src="<?= $payment_method['image'] ?>"
-                                                alt="<?= basename( $payment_method['image'] ) ?>" width="135"
+                                                alt="<?= basename($payment_method['image']) ?>" width="135"
                                                 height="40" loading="lazy">
 
                                         </td>
@@ -1425,33 +1421,34 @@ class We_View_Betting_Site {
 
 <?php
 
-		return ob_get_clean();
+        return ob_get_clean();
 
-	}
+    }
 
 
 
-	/**
+    /**
 
-	 * @param We_M_Betting_Site $betting_site
+     * @param We_M_Betting_Site $betting_site
 
-	 * @param int $bs_index
+     * @param int $bs_index
 
-	 *
+     *
 
-	 * @return false|string
+     * @return false|string
 
-	 */
+     */
 
-	public static function view_payment_methods( BettingSite $betting_site, int $bs_index = 0 ): false|string {
+    public static function view_payment_methods(BettingSite $betting_site, int $bs_index = 0): false|string
+    {
 
-		ob_start();
+        ob_start();
 
-		?>
+        ?>
 
 <?php $payment_methods = self::$payment_methods;
 
-		if ( ! empty( $payment_methods ) ): ?>
+        if (! empty($payment_methods)): ?>
 
 <div class="col pt-3">
 
@@ -1467,7 +1464,7 @@ class We_View_Betting_Site {
 
             <div class="row row-cols-3">
 
-                <?php if ( ! empty( $payment_methods[0]['icon'] ) ): ?>
+                <?php if (! empty($payment_methods[0]['icon'])): ?>
 
                 <div style="height: 53px; width: 53px; border-color: var(--bs-border-color-translucent);"
                     class="border border-1 d-flex flex-row justify-content-center align-items-center me-1">
@@ -1479,9 +1476,9 @@ class We_View_Betting_Site {
 
                 <?php endif; ?>
 
-                <?php if ( count( $payment_methods ) > 1 ): ?>
+                <?php if (count($payment_methods) > 1): ?>
 
-                <?php if ( ! empty( $payment_methods[1]['icon'] ) ): ?>
+                <?php if (! empty($payment_methods[1]['icon'])): ?>
 
                 <div style="height: 53px; width: 53px; border-color: var(--bs-border-color-translucent);"
                     class="border border-1 d-flex flex-row justify-content-center align-items-center me-1">
@@ -1493,9 +1490,9 @@ class We_View_Betting_Site {
 
                 <?php endif; ?>
 
-                <?php if ( count( $payment_methods ) > 2 ): ?>
+                <?php if (count($payment_methods) > 2): ?>
 
-                <?php if ( ! empty( $payment_methods[2]['icon'] ) ): ?>
+                <?php if (! empty($payment_methods[2]['icon'])): ?>
 
                 <div style="height: 53px; width: 53px; border-color: var(--bs-border-color-translucent);"
                     class="border border-1 d-flex flex-row justify-content-center align-items-center me-1">
@@ -1513,13 +1510,13 @@ class We_View_Betting_Site {
 
             </div>
 
-            <?php if ( count( $payment_methods ) > 3 ): ?>
+            <?php if (count($payment_methods) > 3): ?>
 
             <div class="d-none row row-cols-3" id="we-bs-x-pm-<?= $bs_index ?>">
 
-                <?php for ( $i = 3; $i < count( $payment_methods ); $i ++ ): ?>
+                <?php for ($i = 3; $i < count($payment_methods); $i++): ?>
 
-                <?php if ( ! empty( $payment_methods[ $i ]['icon'] ) ): ?>
+                <?php if (! empty($payment_methods[ $i ]['icon'])): ?>
 
                 <div style="height: 53px; width: 53px; border-color: var(--bs-border-color-translucent);"
                     class="border border-1 d-flex flex-row justify-content-center align-items-center me-1 mt-1">
@@ -1557,31 +1554,32 @@ class We_View_Betting_Site {
 
 <?php
 
-		return ob_get_clean();
+        return ob_get_clean();
 
-	}
+    }
 
 
 
-	/**
+    /**
 
-	 * @param We_M_Betting_Site $betting_site
+     * @param We_M_Betting_Site $betting_site
 
-	 *
+     *
 
-	 * @return false|string
+     * @return false|string
 
-	 */
+     */
 
-	public static function view_license( BettingSite $betting_site ): false|string {
+    public static function view_license(BettingSite $betting_site): false|string
+    {
 
-		ob_start();
+        ob_start();
 
-		$license = $betting_site->get_license();
+        $license = $betting_site->get_license();
 
-		if ( ! empty( $license ) ) :
+        if (! empty($license)) :
 
-			?>
+            ?>
 
 <div class="col pt-3">
 
@@ -1603,35 +1601,36 @@ class We_View_Betting_Site {
 
 <?php
 
-		endif;
+        endif;
 
 
 
-		return ob_get_clean();
+        return ob_get_clean();
 
-	}
+    }
 
 
 
-	/**
+    /**
 
-	 * @param We_M_Betting_Site $betting_site
+     * @param We_M_Betting_Site $betting_site
 
-	 *
+     *
 
-	 * @return false|string
+     * @return false|string
 
-	 */
+     */
 
-	public static function view_withdrawal( BettingSite $betting_site ): false|string {
+    public static function view_withdrawal(BettingSite $betting_site): false|string
+    {
 
-		$withdrawal = $betting_site->get_withdrawal();
+        $withdrawal = $betting_site->get_withdrawal();
 
-		ob_start();
+        ob_start();
 
-		if ( ! empty( $withdrawal ) ):
+        if (! empty($withdrawal)):
 
-			?>
+            ?>
 
 <div class="col pt-3">
 
@@ -1659,37 +1658,38 @@ class We_View_Betting_Site {
 
 <?php
 
-		endif;
+        endif;
 
 
 
-		return ob_get_clean();
+        return ob_get_clean();
 
-	}
+    }
 
 
 
-	/**
+    /**
 
-	 * @param We_M_Betting_Site $betting_site
+     * @param We_M_Betting_Site $betting_site
 
-	 *
+     *
 
-	 * @return false|string
+     * @return false|string
 
-	 */
+     */
 
-	public static function view_apps( BettingSite $betting_site ): false|string {
+    public static function view_apps(BettingSite $betting_site): false|string
+    {
 
-		ob_start();
+        ob_start();
 
-		$android_available = $betting_site->is_android_available();
+        $android_available = $betting_site->is_android_available();
 
-		$ios_available     = $betting_site->is_ios_available();
+        $ios_available     = $betting_site->is_ios_available();
 
-		if ( $android_available || $ios_available ):
+        if ($android_available || $ios_available):
 
-			?>
+            ?>
 
 <div class="col pt-3">
 
@@ -1703,7 +1703,7 @@ class We_View_Betting_Site {
 
         <div class="d-flex flex-row">
 
-            <?php if ( $android_available ): ?>
+            <?php if ($android_available): ?>
 
             <div style="height: 53px; width: 53px; border-color: var(--bs-border-color-translucent);"
                 class="border border-1 d-flex justify-content-center align-items-center">
@@ -1715,7 +1715,7 @@ class We_View_Betting_Site {
 
             <?php endif; ?>
 
-            <?php if ( $ios_available ): ?>
+            <?php if ($ios_available): ?>
 
             <div style="width: 53px; height: 53px; border-color: var(--bs-border-color-translucent);"
                 class="border border-1 d-flex justify-content-center align-items-center ms-2">
@@ -1735,35 +1735,36 @@ class We_View_Betting_Site {
 
 <?php
 
-		endif;
+        endif;
 
 
 
-		return ob_get_clean();
+        return ob_get_clean();
 
-	}
+    }
 
 
 
-	/**
+    /**
 
-	 * @param We_M_Betting_Site $betting_site
+     * @param We_M_Betting_Site $betting_site
 
-	 *
+     *
 
-	 * @return false|string
+     * @return false|string
 
-	 */
+     */
 
-	public static function view_award( BettingSite $betting_site ): false|string {
+    public static function view_award(BettingSite $betting_site): false|string
+    {
 
-		ob_start();
+        ob_start();
 
-		$award = $betting_site->get_award();
+        $award = $betting_site->get_award();
 
-		if ( ! empty( $award ) ):
+        if (! empty($award)):
 
-			?>
+            ?>
 
 <div class="col pt-3">
 
@@ -1784,33 +1785,34 @@ class We_View_Betting_Site {
 
 <?php
 
-		endif;
+        endif;
 
 
 
-		return ob_get_clean();
+        return ob_get_clean();
 
-	}
-
-
+    }
 
 
 
-	/**
 
-	 * @param We_M_Betting_Site $betting_site
 
-	 *
+    /**
 
-	 * @return false|string
+     * @param We_M_Betting_Site $betting_site
 
-	 */
+     *
 
-	public static function reviews_navigation( BettingSite $betting_site ): false|string {
+     * @return false|string
 
-		ob_start();
+     */
 
-		?>
+    public static function reviews_navigation(BettingSite $betting_site): false|string
+    {
+
+        ob_start();
+
+        ?>
 
 <div id="th-icons-navigation" class="row mt-4">
 
@@ -1822,135 +1824,135 @@ class We_View_Betting_Site {
 
                 <?php
 
-						$reviews_sections = array(
+                        $reviews_sections = array(
 
-							array(
+                            array(
 
-								'label'    => 'Bonus',
+                                'label'    => 'Bonus',
 
-								'link'     => '#webs-bonus',
+                                'link'     => '#webs-bonus',
 
-								'icon'     => 'review-icon-bonus.svg',
+                                'icon'     => 'review-icon-bonus.svg',
 
-								'meta_key' => MetaKeys::review_bonus_key()
+                                'meta_key' => MetaKeys::review_bonus_key()
 
-							),
+                            ),
 
-							array(
+                            array(
 
-								'label'    => 'Usability',
+                                'label'    => 'Usability',
 
-								'link'     => '#webs-usability',
+                                'link'     => '#webs-usability',
 
-								'icon'     => 'review-icon-usability.svg',
+                                'icon'     => 'review-icon-usability.svg',
 
-								'meta_key' => MetaKeys::review_usability_key()
+                                'meta_key' => MetaKeys::review_usability_key()
 
-							),
+                            ),
 
-							array(
+                            array(
 
-								'label'    => 'Payment',
+                                'label'    => 'Payment',
 
-								'link'     => '#webs-payment',
+                                'link'     => '#webs-payment',
 
-								'icon'     => 'review-icon-payment.svg',
+                                'icon'     => 'review-icon-payment.svg',
 
-								'meta_key' => MetaKeys::review_payment_key()
+                                'meta_key' => MetaKeys::review_payment_key()
 
-							),
+                            ),
 
-							array(
+                            array(
 
-								'label'    => 'Service',
+                                'label'    => 'Service',
 
-								'link'     => '#webs-service',
+                                'link'     => '#webs-service',
 
-								'icon'     => 'review-icon-customer-service.svg',
+                                'icon'     => 'review-icon-customer-service.svg',
 
-								'meta_key' => MetaKeys::review_service_key()
+                                'meta_key' => MetaKeys::review_service_key()
 
-							),
+                            ),
 
-							array(
+                            array(
 
-								'label'    => 'Licensing',
+                                'label'    => 'Licensing',
 
-								'link'     => '#webs-licensing',
+                                'link'     => '#webs-licensing',
 
-								'icon'     => 'review-icon-licensing.svg',
+                                'icon'     => 'review-icon-licensing.svg',
 
-								'meta_key' => MetaKeys::review_licensing_key()
+                                'meta_key' => MetaKeys::review_licensing_key()
 
-							),
+                            ),
 
-							array(
+                            array(
 
-								'label'    => 'Rewards',
+                                'label'    => 'Rewards',
 
-								'link'     => '#webs-rewards',
+                                'link'     => '#webs-rewards',
 
-								'icon'     => 'review-icon-rewards.svg',
+                                'icon'     => 'review-icon-rewards.svg',
 
-								'meta_key' => MetaKeys::review_rewards_key()
+                                'meta_key' => MetaKeys::review_rewards_key()
 
-							),
+                            ),
 
-							array(
+                            array(
 
-								'label'    => 'Sports',
+                                'label'    => 'Sports',
 
-								'link'     => '#webs-sports',
+                                'link'     => '#webs-sports',
 
-								'icon'     => 'review-icon-sport.svg',
+                                'icon'     => 'review-icon-sport.svg',
 
-								'meta_key' => MetaKeys::review_sports_key()
+                                'meta_key' => MetaKeys::review_sports_key()
 
-							),
+                            ),
 
-							array(
+                            array(
 
-								'label'    => 'Casino',
+                                'label'    => 'Casino',
 
-								'link'     => '#webs-casino',
+                                'link'     => '#webs-casino',
 
-								'icon'     => 'review-icon-casino.svg',
+                                'icon'     => 'review-icon-casino.svg',
 
-								'meta_key' => MetaKeys::review_casino_key()
+                                'meta_key' => MetaKeys::review_casino_key()
 
-							),
+                            ),
 
-							array(
+                            array(
 
-								'label'    => 'Esports',
+                                'label'    => 'Esports',
 
-								'link'     => '#webs-esports',
+                                'link'     => '#webs-esports',
 
-								'icon'     => 'review-icon-esports.svg',
+                                'icon'     => 'review-icon-esports.svg',
 
-								'meta_key' => MetaKeys::review_esports_key()
+                                'meta_key' => MetaKeys::review_esports_key()
 
-							),
+                            ),
 
-							array(
+                            array(
 
-								'label'    => 'Conclusion',
+                                'label'    => 'Conclusion',
 
-								'link'     => '#webs-conclusion',
+                                'link'     => '#webs-conclusion',
 
-								'icon'     => 'review-icon-conclusion.svg',
+                                'icon'     => 'review-icon-conclusion.svg',
 
-								'meta_key' => MetaKeys::review_conclusion_key()
+                                'meta_key' => MetaKeys::review_conclusion_key()
 
-							)
+                            )
 
-						);
+                        );
 
-						foreach ( $reviews_sections as $reviews_section ):
+        foreach ($reviews_sections as $reviews_section):
 
-							?>
+            ?>
 
-                <?php if ( ! empty( $betting_site->get_review_section( $reviews_section['meta_key'] ) ) ): ?>
+                <?php if (! empty($betting_site->get_review_section($reviews_section['meta_key']))): ?>
 
                 <li class="list-group-item">
 
@@ -1983,119 +1985,120 @@ class We_View_Betting_Site {
 
 <?php
 
-		return ob_get_clean();
+        return ob_get_clean();
 
-	}
+    }
 
 
 
-	/**
+    /**
 
-	 * @param We_M_Betting_Site $betting_site
+     * @param We_M_Betting_Site $betting_site
 
-	 *
+     *
 
-	 * @return false|string
+     * @return false|string
 
-	 */
+     */
 
-	public static function reviews( BettingSite $betting_site ): false|string {
+    public static function reviews(BettingSite $betting_site): false|string
+    {
 
-		$reviews = array(
+        $reviews = array(
 
-			array(
+            array(
 
-				'id'      => 'webs-bonus',
+                'id'      => 'webs-bonus',
 
-				'content' => $betting_site->get_bonus_review(),
+                'content' => $betting_site->get_bonus_review(),
 
-			),
+            ),
 
-			array(
+            array(
 
-				'id'      => 'webs-usability',
+                'id'      => 'webs-usability',
 
-				'content' => $betting_site->get_usability_review(),
+                'content' => $betting_site->get_usability_review(),
 
-			),
+            ),
 
-			array(
+            array(
 
-				'id'      => 'webs-payment',
+                'id'      => 'webs-payment',
 
-				'content' => $betting_site->get_payment_review(),
+                'content' => $betting_site->get_payment_review(),
 
-			),
+            ),
 
-			array(
+            array(
 
-				'id'      => 'webs-service',
+                'id'      => 'webs-service',
 
-				'content' => $betting_site->get_service_review(),
+                'content' => $betting_site->get_service_review(),
 
-			),
+            ),
 
-			array(
+            array(
 
-				'id'      => 'webs-licensing',
+                'id'      => 'webs-licensing',
 
-				'content' => $betting_site->get_licensing_review(),
+                'content' => $betting_site->get_licensing_review(),
 
-			),
+            ),
 
-			array(
+            array(
 
-				'id'      => 'webs-rewards',
+                'id'      => 'webs-rewards',
 
-				'content' => $betting_site->get_rewards_review(),
+                'content' => $betting_site->get_rewards_review(),
 
-			),
+            ),
 
-			array(
+            array(
 
-				'id'      => 'webs-sports',
+                'id'      => 'webs-sports',
 
-				'content' => $betting_site->get_sports_review(),
+                'content' => $betting_site->get_sports_review(),
 
-			),
+            ),
 
-			array(
+            array(
 
-				'id'      => 'webs-casino',
+                'id'      => 'webs-casino',
 
-				'content' => $betting_site->get_casino_review(),
+                'content' => $betting_site->get_casino_review(),
 
-			),
+            ),
 
-			array(
+            array(
 
-				'id'      => 'webs-esports',
+                'id'      => 'webs-esports',
 
-				'content' => $betting_site->get_esports_review(),
+                'content' => $betting_site->get_esports_review(),
 
-			),
+            ),
 
-			array(
+            array(
 
-				'id'      => 'webs-conclusion',
+                'id'      => 'webs-conclusion',
 
-				'content' => $betting_site->get_conclusion_review()
+                'content' => $betting_site->get_conclusion_review()
 
-			)
+            )
 
-		);
+        );
 
-		ob_start();
+        ob_start();
 
-		?>
+        ?>
 
 <div class="row">
 
     <div class="col-12 col-lg-8">
 
-        <?php foreach ( $reviews as $review ): ?>
+        <?php foreach ($reviews as $review): ?>
 
-        <?php if ( ! empty( $review ) && ! empty( $review['content'] ) ): ?>
+        <?php if (! empty($review) && ! empty($review['content'])): ?>
 
         <div class="row pb-4 webs-review-container" id="<?= $review['id'] ?>">
 
@@ -2103,27 +2106,27 @@ class We_View_Betting_Site {
 
                 <?= $review['content'] ?>
 
-                <?php if ( $review['id'] == 'webs-bonus' ): ?>
+                <?php if ($review['id'] == 'webs-bonus'): ?>
 
                 <?php
 
-									$categories = self::$categories;
+                                    $categories = self::$categories;
 
-									$all_bonus  = self::$all_bonus;
+                    $all_bonus  = self::$all_bonus;
 
-									?>
+                    ?>
 
-                <?php if ( ! empty( $all_bonus ) ): ?>
+                <?php if (! empty($all_bonus)): ?>
 
                 <div class="row row-cols-auto">
 
-                    <?php foreach ( $all_bonus as $bonus ): ?>
+                    <?php foreach ($all_bonus as $bonus): ?>
 
                     <?php
 
-												$category = get_term( $bonus['category'][0]['id'], Taxonomy::$betting_site_category_slug );
+                                $category = get_term($bonus['category'][0]['id'], Taxonomy::$betting_site_category_slug);
 
-												?>
+                        ?>
 
                     <div class="col">
 
@@ -2142,7 +2145,7 @@ class We_View_Betting_Site {
 
                             <div class="badge text-bg-warning position-absolute text-uppercase">
 
-                                <?php if ( ! empty( $category ) && ! is_wp_error( $category ) ): ?>
+                                <?php if (! empty($category) && ! is_wp_error($category)): ?>
 
                                 <?= $category->name ?>
 
@@ -2169,13 +2172,13 @@ class We_View_Betting_Site {
                                     </div>
 
                                     <a class="btn btn-primary text-uppercase fw-bold my-2 text-decoration-none"
-                                        href="<?= $bonus['link'] ?>" target="_blank">
+                                        href="<?= $bonus['link'] ?>" >
 
                                         Get bonus
 
                                     </a>
 
-                                    <?php if ( ! empty( $betting_site->get_tc_apply() ) ): ?>
+                                    <?php if (! empty($betting_site->get_tc_apply())): ?>
 
                                     <div class="my-2 text-black-50 fs-07rem">
 
@@ -2201,21 +2204,21 @@ class We_View_Betting_Site {
 
                 <?php endif; ?>
 
-                <?php if ( $review['id'] == 'webs-payment' ): ?>
+                <?php if ($review['id'] == 'webs-payment'): ?>
 
                 <?php
 
-									$payment_methods       = self::$payment_methods;
+                                    $payment_methods       = self::$payment_methods;
 
-									$payment_methods_count = count( $payment_methods );
+                    $payment_methods_count = count($payment_methods);
 
-									?>
+                    ?>
 
-                <?php if ( ! empty( $payment_methods ) ): ?>
+                <?php if (! empty($payment_methods)): ?>
 
                 <div class="row mt-2 row-cols-auto gx-2">
 
-                    <?php for ( $i = 0; $i < min( $payment_methods_count, 5 ); $i ++ ): ?>
+                    <?php for ($i = 0; $i < min($payment_methods_count, 5); $i++): ?>
 
                     <div class="col mt-2">
 
@@ -2231,9 +2234,9 @@ class We_View_Betting_Site {
 
                     <?php endfor; ?>
 
-                    <?php if ( $payment_methods_count > 5 ): ?>
+                    <?php if ($payment_methods_count > 5): ?>
 
-                    <?php for ( $i = 5; $i < $payment_methods_count; $i ++ ): ?>
+                    <?php for ($i = 5; $i < $payment_methods_count; $i++): ?>
 
                     <div class="col mt-2 we-bs-review-hidden-payment-method" style="display: none;">
 
@@ -2269,13 +2272,13 @@ class We_View_Betting_Site {
 
                 <?php endif; ?>
 
-                <?php if ( $review['id'] == 'webs-licensing' ): ?>
+                <?php if ($review['id'] == 'webs-licensing'): ?>
 
                 <?php
 
-									$license = $betting_site->get_license();
+                    $license = $betting_site->get_license();
 
-									if ( ! empty( $license ) ): ?>
+                    if (! empty($license)): ?>
 
                 <div class="row mt-4">
 
@@ -2296,21 +2299,21 @@ class We_View_Betting_Site {
 
                 <?php endif; ?>
 
-                <?php if ( $review['id'] == 'webs-casino' ): ?>
+                <?php if ($review['id'] == 'webs-casino'): ?>
 
                 <?php
 
-									$software_providers       = self::$software_providers;
+                    $software_providers       = self::$software_providers;
 
-									$software_providers_count = count( $software_providers );
+                    $software_providers_count = count($software_providers);
 
-									?>
+                    ?>
 
-                <?php if ( ! empty( $software_providers ) ): ?>
+                <?php if (! empty($software_providers)): ?>
 
                 <div class="row mt-2 row-cols-auto gx-2">
 
-                    <?php for ( $i = 0; $i < min( $software_providers_count, 5 ); $i ++ ): ?>
+                    <?php for ($i = 0; $i < min($software_providers_count, 5); $i++): ?>
 
                     <div class="col mt-2">
 
@@ -2326,11 +2329,11 @@ class We_View_Betting_Site {
 
                     <?php endfor; ?>
 
-                    <?php if ( $software_providers_count > 5 ): ?>
+                    <?php if ($software_providers_count > 5): ?>
 
 
 
-                    <?php for ( $i = 5; $i < $software_providers_count; $i ++ ): ?>
+                    <?php for ($i = 5; $i < $software_providers_count; $i++): ?>
 
                     <div class="col mt-2 we-bs-review-hidden-software-providers" style="display: none;">
 
@@ -2382,7 +2385,7 @@ class We_View_Betting_Site {
 
             <div class="col-12">
 
-                <?= Widgets::top_brands( array_slice( self::$top_betting_sites, 0, 5 ) ) ?>
+                <?= Widgets::top_brands(array_slice(self::$top_betting_sites, 0, 5)) ?>
 
             </div>
 
@@ -2394,13 +2397,13 @@ class We_View_Betting_Site {
 
             <div class="col-12 mb-5">
 
-                <?= Widgets::top_betting_sites_list( array_slice( self::$top_betting_sites, 0, 20 ) ) ?>
+                <?= Widgets::top_betting_sites_list(array_slice(self::$top_betting_sites, 0, 20)) ?>
 
             </div>
 
             <div class="col-12">
 
-                <?= Widgets::top_bonuses( array_slice( self::$top_betting_sites, 0, 5 ) ) ?>
+                <?= Widgets::top_bonuses(array_slice(self::$top_betting_sites, 0, 5)) ?>
 
             </div>
 
@@ -2412,31 +2415,32 @@ class We_View_Betting_Site {
 
 <?php
 
-		return ob_get_clean();
+        return ob_get_clean();
 
-	}
+    }
 
 
 
-	/**
+    /**
 
-	 * @param We_M_Betting_Site $betting_site
+     * @param We_M_Betting_Site $betting_site
 
-	 *
+     *
 
-	 * @return false|string
+     * @return false|string
 
-	 */
+     */
 
-	public static function faq( BettingSite $betting_site ): false|string {
+    public static function faq(BettingSite $betting_site): false|string
+    {
 
-		$faq = $betting_site->get_faq();
+        $faq = $betting_site->get_faq();
 
-		ob_start();
+        ob_start();
 
-		?>
+        ?>
 
-<?php if ( ! empty( $faq ) ): ?>
+<?php if (! empty($faq)): ?>
 
 <div class="row mt-4">
 
@@ -2450,9 +2454,9 @@ class We_View_Betting_Site {
 
         <ol class="list-group list-group-numbered ps-0">
 
-            <?php foreach ( $faq as $data_set ): ?>
+            <?php foreach ($faq as $data_set): ?>
 
-            <?php if ( ! empty( $data_set ) ): ?>
+            <?php if (! empty($data_set)): ?>
 
             <li class="list-group-item d-flex justify-content-between align-items-start py-4">
 
@@ -2484,45 +2488,46 @@ class We_View_Betting_Site {
 
 <?php
 
-		return ob_get_clean();
+        return ob_get_clean();
 
-	}
+    }
 
 
 
-	/**
+    /**
 
-	 * @param array $args
+     * @param array $args
 
-	 *
+     *
 
-	 * @return false|string
+     * @return false|string
 
-	 */
+     */
 
-	public static function content( array $args ): false|string {
+    public static function content(array $args): false|string
+    {
 
-		if ( ! empty( $args['id'] ) && is_numeric( $args['id'] ) ) {
+        if (! empty($args['id']) && is_numeric($args['id'])) {
 
-			$post = get_post( $args['id'] );
+            $post = get_post($args['id']);
 
-		}
+        }
 
-		if ( empty( $post ) || ! $post instanceof WP_Post ) {
+        if (empty($post) || ! $post instanceof WP_Post) {
 
-			wp_redirect( get_bloginfo( 'url' ) );
+            wp_redirect(get_bloginfo('url'));
 
-			exit();
+            exit();
 
-		}
+        }
 
-		$betting_site = new BettingSite( $post );
+        $betting_site = new BettingSite($post);
 
-		self::init( $betting_site );
+        self::init($betting_site);
 
-		ob_start();
+        ob_start();
 
-		?>
+        ?>
 
 <style>
 
@@ -2532,15 +2537,15 @@ class We_View_Betting_Site {
 
 <div class="container-fluid">
 
-    <?= self::header( $betting_site ) ?>
+    <?= self::header($betting_site) ?>
 
-    <?= self::summary( $betting_site ) ?>
+    <?= self::summary($betting_site) ?>
 
-    <?= self::reviews_navigation( $betting_site ); ?>
+    <?= self::reviews_navigation($betting_site); ?>
 
-    <?= self::reviews( $betting_site ) ?>
+    <?= self::reviews($betting_site) ?>
 
-    <?= self::faq( $betting_site ) ?>
+    <?= self::faq($betting_site) ?>
 
 </div>
 
@@ -2570,8 +2575,8 @@ if (extraPaymentMethodsToggle) {
 
 <?php
 
-		return ob_get_clean();
+        return ob_get_clean();
 
-	}
+    }
 
 }
