@@ -297,7 +297,7 @@ class We_Blocks
                  $posts       = array();
                  if (! empty($category)) {
                      $posts = get_posts(array(
-                         'numberposts' => 4,
+                         'numberposts' => 12,
                          'category'    => $category[0]['id'],
                          'orderby'     => 'date',
                          'order'       => 'DESC',
@@ -306,7 +306,7 @@ class We_Blocks
                  }
                  ?>
 <section class="py-5 my-5 bg-dark">
-    <div class=" container">
+    <div class="container">
         <div class="row row-cols-auto">
             <?php if (! empty($title)): ?>
             <div class="col">
@@ -336,49 +336,55 @@ class We_Blocks
         <?php if (! empty($posts)): ?>
 
 
-        <!-- Swiper main container -->
-        <div class="row">
+        <div class="swiper">
 
 
-            <!-- Swiper wrapper -->
-            <?php foreach ($posts as $post): ?>
+            <!-- Swiper main container -->
+            <div class="swiper-wrapper">
 
+                <swiper-container class="mySwiper" autoplay-delay="1000" speed="2000" loop="true" space-between="10">
 
-            <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
-                <!-- Each post as a swiper-slide -->
-                <div class=" card rounded-1 border-black w-100 mb-4">
-                    <div class="position-relative">
-                        <img src="<?= wp_get_attachment_image_src(get_post_thumbnail_id($post), 'full')[0] ?>"
-                            alt="<?= $post->post_title ?>" class="img-fluid card-img-top">
-                        <div class="position-absolute bottom-0 text-bg-dark px-2 fs-08rem">
-                            <?= get_the_date("", $post); ?>
+                    <!-- Swiper wrapper -->
+                    <?php foreach ($posts as $post): ?>
+                    <swiper-slide>
+
+                        <div class="swiper-slide">
+                            <!-- Each post as a swiper-slide -->
+                            <div class=" card rounded-1 border-black w-100 mb-4">
+                                <div class="position-relative">
+                                    <img src="<?= wp_get_attachment_image_src(get_post_thumbnail_id($post), 'full')[0] ?>"
+                                        alt="<?= $post->post_title ?>" class="img-fluid card-img-top">
+                                    <div class="position-absolute bottom-0 text-bg-dark px-2 fs-08rem">
+                                        <?= get_the_date("", $post); ?>
+                                    </div>
+                                </div>
+                                <div class="card-body" style="height:200px;">
+                                    <div class="card-title">
+                                        <h3 class="fw-bold fs-5">
+                                            <a href="<?= get_permalink($post) ?>"
+                                                class="text-decoration-none text-black">
+                                                <?= wp_trim_words($post->post_title, 10) ?>
+                                            </a>
+                                        </h3>
+                                    </div>
+                                    <div class="card-text">
+                                        <p>
+                                            <?= wp_trim_words($post->post_excerpt, 15) ?>
+                                        </p>
+                                        <a href="<?php the_permalink($post); ?>"
+                                            style="text-decoration:none; color:black; ">Read
+                                            More</a>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="card-body" style="height:200px;">
-                        <div class="card-title">
-                            <h3 class="fw-bold fs-5">
-                                <a href="<?= get_permalink($post) ?>" class="text-decoration-none text-black">
-                                    <?= wp_trim_words($post->post_title, 10) ?>
-                                </a>
-                            </h3>
-                        </div>
-                        <div class="card-text">
-                            <p>
-                                <?= wp_trim_words($post->post_excerpt, 15) ?>
-                            </p>
-                            <a href="<?php the_permalink($post); ?>" style="text-decoration:none; color:black; ">Read
-                                More</a>
-                        </div>
-                    </div>
-                </div>
+
+                    </swiper-slide>
+                    <?php endforeach; ?>
+
+                </swiper-container>
             </div>
-
-
-            <?php endforeach; ?>
-
-
         </div>
-
 
 
 
