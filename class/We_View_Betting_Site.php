@@ -333,9 +333,9 @@ class We_View_Betting_Site
         <div class="d-grid <?= $first ? '' : 'd-none' ?> webs-bonus-cta"
             id="webs-bonus-cta-<?= $bonus['category'][0]['id'] ?>">
 
-            <a class="btn btn-outline-dark" style="border-style: dashed; text-decoration: none"
-                href="<?= ! empty($bonus['link']) ? $bonus['link'] : '' ?>" 
-                data-value="<?= $bonus['code'] ?>">
+            <a class="btn btn-outline-dark We_View_Betting_Site2" style="border-style: dashed; text-decoration: none"
+                href="<?= ! empty($bonus['link']) ? $bonus['link'] : '' ?>" data-value="<?= $bonus['code'] ?>"
+                target="_blank">
 
                 <span style="vertical-align: -webkit-baseline-middle;">
 
@@ -345,7 +345,7 @@ class We_View_Betting_Site
 
             </a>
 
-            <a class="btn btn-primary text-uppercase mt-2 border-0 fw-semibold text-decoration-none" 
+            <a class="btn btn-primary text-uppercase mt-2 border-0 fw-semibold text-decoration-none"
                 href="<?= ! empty($bonus['link']) ? $bonus['link'] : '' ?>">
 
                 <?= $betting_site->get_cta_label() ?>
@@ -1358,8 +1358,8 @@ class We_View_Betting_Site
                                         <td class="text-center fs-6">
 
                                             <img src="<?= $payment_method['image'] ?>"
-                                                alt="<?= basename($payment_method['image']) ?>" width="135"
-                                                height="40" loading="lazy">
+                                                alt="<?= basename($payment_method['image']) ?>" width="135" height="40"
+                                                loading="lazy">
 
                                         </td>
 
@@ -2171,8 +2171,8 @@ class We_View_Betting_Site
 
                                     </div>
 
-                                    <a class="btn btn-primary text-uppercase fw-bold my-2 text-decoration-none"
-                                        href="<?= $bonus['link'] ?>" >
+                                    <a class="btn btn-primary text-uppercase fw-bold my-2 text-decoration-none We_View_Betting_Site"
+                                        href="<?=  $bonus['link'] ?>" target="_blank">
 
                                         Get bonus
 

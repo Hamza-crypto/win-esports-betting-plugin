@@ -28,7 +28,7 @@ class We_View_Betting_Site_Card
                 }
         if (!empty($thumbnail)):
             ?>
-        <a href="<?= get_permalink($betting_site['post_id']) ?>" >
+        <a href="<?= get_permalink($betting_site['post_id']) ?>">
             <img src="<?= $thumbnail ?>" alt="<?= $betting_site['post_title'] ?>" class="img-fluid" loading="lazy"
                 width="172" height="46">
         </a>
@@ -82,7 +82,7 @@ class We_View_Betting_Site_Card
         ?>
 <div class="col-12 col-sm-8 col-md-5 col-lg-4 col-xl-5">
     <div class="mt-2 mt-sm-0">
-        <a href="<?= get_permalink($betting_site['post_id']) ?>"  class="fw-bold text-black">
+        <a href="<?= get_permalink($betting_site['post_id']) ?>" class="fw-bold text-black">
             <?= $betting_site['post_title'] . ' review' ?>
         </a>
     </div>
@@ -157,13 +157,15 @@ class We_View_Betting_Site_Card
         ?>
 <div class="col-12 col-sm-12 col-md-12 col-lg-3 col-xl-2">
     <div class="d-grid">
-        <a class="btn btn-outline-dark" style="border-style: dashed; text-decoration: none"
-            href="<?= ! empty($featured_bonus['link']) ? $featured_bonus['link'] : '' ?>" 
+        <a target="_blank" class="btn btn-outline-dark VIEW_BETTING_SITE_CARD"
+            style="border-style: dashed; text-decoration: none"
+            href="<?= ! empty($featured_bonus['link']) ? $featured_bonus['link'] : '' ?>"
             data-value="<?= ! empty($featured_bonus) ? $featured_bonus['code'] : '' ?>">
             <span style="vertical-align: -webkit-baseline-middle;"><?= str_repeat('*  ', 6) ?></span>
         </a>
-        <a class="btn btn-primary text-uppercase mt-2 border-0 fw-semibold text-decoration-none"
-            href="<?= ! empty($featured_bonus['link']) ? $featured_bonus['link'] : '' ?>" >
+        <a target="_blank"
+            class="btn btn-primary text-uppercase mt-2 border-0 fw-semibold text-decoration-none VIEW_BETTING_SITE_CARD"
+            href="<?= ! empty($featured_bonus['link']) ? $featured_bonus['link'] : '' ?>">
             <?= $betting_site[ '_' . MetaKeys::cta_label_key() ] ?? 'bet now' ?>
         </a>
     </div>

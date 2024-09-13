@@ -217,31 +217,31 @@ class We_Widgets
 
                 <div class="px-2">
 
-         <div class="d-flex flex-row align-items-center">
+                    <div class="d-flex flex-row align-items-center">
 
-    <!-- Wrapping the image with a link to make it clickable -->
-    <a href="<?= get_permalink($betting_site['post_id']) ?>" 
-       style="width: 75px; height: 50px; background-color: <?= $betting_site['_websf_logo_bg_color'] ?>" 
-       class="d-flex flex-row justify-content-center align-items-center">
-       
-        <img src="<?= wp_get_attachment_image_src($betting_site['_thumbnail_id'], 'full')[0] ?>"
-            alt="<?= $betting_site['post_title'] ?>" class="img-fluid">
+                        <!-- Wrapping the image with a link to make it clickable -->
+                        <a href="<?= get_permalink($betting_site['post_id']) ?>"
+                            style="width: 75px; height: 50px; background-color: <?= $betting_site['_websf_logo_bg_color'] ?>"
+                            class="d-flex flex-row justify-content-center align-items-center">
 
-    </a>
+                            <img src="<?= wp_get_attachment_image_src($betting_site['_thumbnail_id'], 'full')[0] ?>"
+                                alt="<?= $betting_site['post_title'] ?>" class="img-fluid">
 
-    <div class="ms-3">
-        <!-- Post title -->
-        <h3 class="mb-0">
-            <?= $betting_site['post_title'] ?>
-        </h3>
+                        </a>
 
-        <!-- Link under the title -->
-        <a href="<?= get_permalink($betting_site['post_id']) ?>" class="text-black">
-            <?= $betting_site['post_title'] ?> review
-        </a>
-    </div>
+                        <div class="ms-3">
+                            <!-- Post title -->
+                            <h3 class="mb-0">
+                                <?= $betting_site['post_title'] ?>
+                            </h3>
 
-</div>
+                            <!-- Link under the title -->
+                            <a href="<?= get_permalink($betting_site['post_id']) ?>" class="text-black">
+                                <?= $betting_site['post_title'] ?> review
+                            </a>
+                        </div>
+
+                    </div>
 
                 </div>
 
@@ -377,43 +377,43 @@ class We_Widgets
 
                 <div class="px-2">
 
-                   <div class="d-flex flex-row align-items-center">
+                    <div class="d-flex flex-row align-items-center">
 
-    <!-- Image container with clickable link -->
-    <div style="width: 75px; min-width: 75px; height: 50px; background-color: <?= $betting_site['_websf_logo_bg_color'] ?>"
-        class="d-flex flex-row justify-content-center align-items-center">
-        
-        <!-- Image wrapped in link -->
-        <a href="<?= get_permalink($betting_site['post_id']) ?>">
-            <img src="<?= wp_get_attachment_image_src($betting_site['_thumbnail_id'], 'full')[0] ?>"
-                alt="<?= $betting_site['post_title'] ?>" class="img-fluid">
-        </a>
-        
-    </div>
+                        <!-- Image container with clickable link -->
+                        <div style="width: 75px; min-width: 75px; height: 50px; background-color: <?= $betting_site['_websf_logo_bg_color'] ?>"
+                            class="d-flex flex-row justify-content-center align-items-center">
 
-    <!-- Post title and bonus information -->
-    <div class="ms-3">
+                            <!-- Image wrapped in link -->
+                            <a href="<?= get_permalink($betting_site['post_id']) ?>">
+                                <img src="<?= wp_get_attachment_image_src($betting_site['_thumbnail_id'], 'full')[0] ?>"
+                                    alt="<?= $betting_site['post_title'] ?>" class="img-fluid">
+                            </a>
 
-        <h3 class="mb-0 text-uppercase fs-6">
-            <a href="<?= get_permalink($betting_site['post_id']) ?>" class="text-black">
-                <?= $betting_site['post_title'] ?> bonus
-            </a>
-        </h3>
+                        </div>
 
-        <div>
-            <?= $betting_site['_websf_featured_bonus'][0]['title'] ?>
-        </div>
+                        <!-- Post title and bonus information -->
+                        <div class="ms-3">
 
-        <!-- Terms and Conditions, if available -->
-        <?php if (!empty($betting_site['_websf_tc_apply_18'])): ?>
-            <div class="text-black-50">
-                <?= $betting_site['_websf_tc_apply_18'] ?>
-            </div>
-        <?php endif; ?>
+                            <h3 class="mb-0 text-uppercase fs-6">
+                                <a href="<?= get_permalink($betting_site['post_id']) ?>" class="text-black">
+                                    <?= $betting_site['post_title'] ?> bonus
+                                </a>
+                            </h3>
 
-    </div>
+                            <div>
+                                <?= $betting_site['_websf_featured_bonus'][0]['title'] ?>
+                            </div>
 
-</div>
+                            <!-- Terms and Conditions, if available -->
+                            <?php if (!empty($betting_site['_websf_tc_apply_18'])): ?>
+                            <div class="text-black-50">
+                                <?= $betting_site['_websf_tc_apply_18'] ?>
+                            </div>
+                            <?php endif; ?>
+
+                        </div>
+
+                    </div>
 
                 </div>
 
@@ -526,7 +526,7 @@ class We_Widgets
 
             <div style="max-width: 200px; max-height: 150px;">
 
-                <img  src="<?= wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), 'full')[0] ?>"
+                <img src="<?= wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), 'full')[0] ?>"
                     alt="<?= $post->post_title ?>" class="img-fluid" style="object-fit: fill; height:100%; width:100%">
 
             </div>
@@ -673,8 +673,8 @@ class We_Widgets
 
                 </div>
 
-                <a class="btn btn-primary text-uppercase fw-bold my-2 text-decoration-none" href="<?= $bonus['link'] ?>"
-                    >
+                <a class="btn btn-primary text-uppercase fw-bold my-2 text-decoration-none WE_WIDGETS"
+                    href="<?= $bonus['link'] ?>" target="_blank">
 
                     Get bonus
 
@@ -773,7 +773,7 @@ class We_Widgets
 
     <div class="card rounded-1 position-relative we-bs-bonus-review-card my-4 w-100" style="width: 238px">
 
-        <span style="background-color: whitesmoke;"  1234><?= $betting_site['_websf_featured_tag'] ?></span>
+        <span style="background-color: whitesmoke;" 1234><?= $betting_site['_websf_featured_tag'] ?></span>
         <div class="d-flex flex-row justify-content-end align-items-center position-absolute end-0 p-2">
 
             <div class="we-bs-raring-stars-container">
@@ -785,38 +785,38 @@ class We_Widgets
 
         </div>
 
-   <div class="card-body pt-3" style="background-color: whitesmoke">
+        <div class="card-body pt-3" style="background-color: whitesmoke">
 
-    <div class="d-flex flex-column justify-content-center align-items-center my-4">
+            <div class="d-flex flex-column justify-content-center align-items-center my-4">
 
-        <div class="d-flex justify-content-center align-items-center"
-            style="background-color: <?= $betting_site['_websf_logo_bg_color'] ?>; height: 116px; width: 116px; border-radius: 50%">
+                <div class="d-flex justify-content-center align-items-center"
+                    style="background-color: <?= $betting_site['_websf_logo_bg_color'] ?>; height: 116px; width: 116px; border-radius: 50%">
 
-            <a href="<?= get_permalink($betting_site['post_id']) ?>">
-                <img src="<?= wp_get_attachment_image_src($betting_site['_thumbnail_id'], 'full')[0] ?>"
-                    alt="<?= $betting_site['post_title'] ?>" class="img-fluid" loading="lazy">
-            </a>
+                    <a href="<?= get_permalink($betting_site['post_id']) ?>">
+                        <img src="<?= wp_get_attachment_image_src($betting_site['_thumbnail_id'], 'full')[0] ?>"
+                            alt="<?= $betting_site['post_title'] ?>" class="img-fluid" loading="lazy">
+                    </a>
 
-        </div>
+                </div>
 
-        <div class="pt-3 pb-2">
+                <div class="pt-3 pb-2">
 
-            <a href="<?= get_permalink($betting_site['post_id']) ?>" class="text-black">
+                    <a href="<?= get_permalink($betting_site['post_id']) ?>" class="text-black">
 
-                <?= $betting_site['post_title'] ?>
+                        <?= $betting_site['post_title'] ?>
 
-            </a>
+                    </a>
 
-        </div>
+                </div>
 
-        <div class="fw-bold fs-5 my-2 text-center">
+                <div class="fw-bold fs-5 my-2 text-center">
 
-            <?= $bonus['title'] ?>
+                    <?= $bonus['title'] ?>
 
-        </div>
+                </div>
 
                 <a class="btn btn-primary text-uppercase fw-bold my-2 text-decoration-none" href="<?= $bonus['link'] ?>"
-                    >
+                    target="_blank">
 
                     Get bonus
 
@@ -915,19 +915,19 @@ class We_Widgets
 
         <div class="row">
 
-           <div class="col-6 col-xl-3">
+            <div class="col-6 col-xl-3">
 
-    <a href="<?= get_permalink($featured_betting_site['post_id']) ?>">
-        <div style="width: 137px; height: 100px; background-color: <?= $featured_betting_site['_websf_logo_bg_color'] ?>"
-            class="d-flex justify-content-center align-items-center">
+                <a href="<?= get_permalink($featured_betting_site['post_id']) ?>">
+                    <div style="width: 137px; height: 100px; background-color: <?= $featured_betting_site['_websf_logo_bg_color'] ?>"
+                        class="d-flex justify-content-center align-items-center">
 
-            <img src="<?= wp_get_attachment_image_src(get_post_thumbnail_id($featured_betting_site['post_id']), 'full')[0] ?>"
-                alt="<?= $featured_betting_site['post_title'] ?>" class="img-fluid">
+                        <img src="<?= wp_get_attachment_image_src(get_post_thumbnail_id($featured_betting_site['post_id']), 'full')[0] ?>"
+                            alt="<?= $featured_betting_site['post_title'] ?>" class="img-fluid">
 
-        </div>
-    </a>
+                    </div>
+                </a>
 
-</div>
+            </div>
 
             <div class="col-6 col-xl-3">
 
@@ -997,7 +997,8 @@ class We_Widgets
                     <div class="d-grid g-1 w-100">
 
                         <a href="<?= $featured_bonus['link'] ?>"
-                            class="fw-bold text-uppercase text-decoration-none btn btn-primary">
+                            class="fw-bold text-uppercase text-decoration-none btn btn-primary WE_WIDGETS2"
+                            target="_blank">
 
                             Get bonus
 
