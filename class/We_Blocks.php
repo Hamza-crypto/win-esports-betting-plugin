@@ -202,61 +202,67 @@ class We_Blocks
                          $cards = $fields['cards'];
                  if (! empty($cards)):
 
-
-
-
                      ?>
-        <div class="row" aaa>
-            <?php foreach ($cards as $card): ?>
-            <div class="col-12 col-sm-6 col-lg-4 col-xl-3">
-                <div class="card w-100 mb-4">
-                    <?php
+
+        <div class="swiper">
+            <div class="swiper-wrapper">
+                <!-- <div class="row"> -->
+                <swiper-container class="games_swiper" autoplay-delay="500" speed="2000" loop="true" space-between="20">
+                    <?php foreach ($cards as $card): ?>
+                    <swiper-slide>
+
+                        <div class="card w-100 mb-4">
+                            <?php
 
                  $links = $card['card-links'];
-                $list_style_image = WE_PLUGIN_URL . '/assets/icons/arrow-triangle-darkblue.svg';
+                        $list_style_image = WE_PLUGIN_URL . '/assets/icons/arrow-triangle-darkblue.svg';
 
-                if (!empty($links)): ?>
-                    <a href="<?= $links[0]['link-url'] ?>">
-                        <?php endif; ?>
-                        <img src="<?= wp_get_attachment_image_src($card['card-image'], 'full')[0] ?>"
-                            alt="<?= $card['card-title'] ?>" class="img-fluid card-img-top">
-                        <?php if (!empty($links)): ?>
-                    </a>
-                    <?php endif; ?>
+                        if (!empty($links)): ?>
+                            <a href="<?= $links[0]['link-url'] ?>">
+                                <?php endif; ?>
+                                <img src="<?= wp_get_attachment_image_src($card['card-image'], 'full')[0] ?>"
+                                    alt="<?= $card['card-title'] ?>" class="img-fluid card-img-top">
+                                <?php if (!empty($links)): ?>
+                            </a>
+                            <?php endif; ?>
 
-                    <div class="card-body">
-                        <div class="card-title">
-                            <h3 class="fw-bold text-uppercase fs-5">
-                                <?= $card['card-title'] ?>
-                            </h3>
-                        </div>
-                        <?php
+                            <div class="card-body">
+                                <div class="card-title">
+                                    <h3 class="fw-bold text-uppercase fs-5">
+                                        <?= $card['card-title'] ?>
+                                    </h3>
+                                </div>
+                                <?php
         $links = $card['card-links'];
-                $list_style_image = WE_PLUGIN_URL . '/assets/icons/arrow-triangle-darkblue.svg';
-                if (!empty($links)):
-                    ?>
-                        <style>
-                        ul.we-feature-card-list {
-                            list-style-image: url("<?= $list_style_image ?>");
-                        }
-                        </style>
-                        <ul class="we-feature-card-list">
-                            <?php foreach ($links as $link): ?>
-                            <li>
-                                <a href="<?= $link['link-url'] ?>"
-                                    class="text-decoration-none text-capitalize text-black">
-                                    <?= $link['link-title'] ?>
-                                </a>
-                            </li>
-                            <?php endforeach; ?>
-                        </ul>
-                        <?php endif; ?>
-                    </div>
-                </div>
+                        $list_style_image = WE_PLUGIN_URL . '/assets/icons/arrow-triangle-darkblue.svg';
+                        if (!empty($links)):
+                            ?>
+                                <style>
+                                ul.we-feature-card-list {
+                                    list-style-image: url("<?= $list_style_image ?>");
+                                }
+                                </style>
+                                <ul class="we-feature-card-list">
+                                    <?php foreach ($links as $link): ?>
+                                    <li>
+                                        <a href="<?= $link['link-url'] ?>"
+                                            class="text-decoration-none text-capitalize text-black">
+                                            <?= $link['link-title'] ?>
+                                        </a>
+                                    </li>
+                                    <?php endforeach; ?>
+                                </ul>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+
+                    </swiper-slide>
+                    <?php endforeach; ?>
+                </swiper-container>
             </div>
-            <?php endforeach; ?>
         </div>
-        <?php endif; ?>
+    </div>
+    <?php endif; ?>
     </div>
 </section>
 <?php
@@ -348,36 +354,35 @@ class We_Blocks
                     <?php foreach ($posts as $post): ?>
                     <swiper-slide>
 
-                        <div class="swiper-slide">
-                            <!-- Each post as a swiper-slide -->
-                            <div class=" card rounded-1 border-black w-100 mb-4">
-                                <div class="position-relative">
-                                    <img src="<?= wp_get_attachment_image_src(get_post_thumbnail_id($post), 'full')[0] ?>"
-                                        alt="<?= $post->post_title ?>" class="img-fluid card-img-top">
-                                    <div class="position-absolute bottom-0 text-bg-dark px-2 fs-08rem">
-                                        <?= get_the_date("", $post); ?>
-                                    </div>
+
+                        <!-- Each post as a swiper-slide -->
+                        <div class=" card rounded-1 border-black w-100 mb-4">
+                            <div class="position-relative">
+                                <img src="<?= wp_get_attachment_image_src(get_post_thumbnail_id($post), 'full')[0] ?>"
+                                    alt="<?= $post->post_title ?>" class="img-fluid card-img-top">
+                                <div class="position-absolute bottom-0 text-bg-dark px-2 fs-08rem">
+                                    <?= get_the_date("", $post); ?>
                                 </div>
-                                <div class="card-body" style="height:200px;">
-                                    <div class="card-title">
-                                        <h3 class="fw-bold fs-5">
-                                            <a href="<?= get_permalink($post) ?>"
-                                                class="text-decoration-none text-black">
-                                                <?= wp_trim_words($post->post_title, 10) ?>
-                                            </a>
-                                        </h3>
-                                    </div>
-                                    <div class="card-text">
-                                        <p>
-                                            <?= wp_trim_words($post->post_excerpt, 15) ?>
-                                        </p>
-                                        <a href="<?php the_permalink($post); ?>"
-                                            style="text-decoration:none; color:black; ">Read
-                                            More</a>
-                                    </div>
+                            </div>
+                            <div class="card-body" style="height:200px;">
+                                <div class="card-title">
+                                    <h3 class="fw-bold fs-5">
+                                        <a href="<?= get_permalink($post) ?>" class="text-decoration-none text-black">
+                                            <?= wp_trim_words($post->post_title, 10) ?>
+                                        </a>
+                                    </h3>
+                                </div>
+                                <div class="card-text">
+                                    <p>
+                                        <?= wp_trim_words($post->post_excerpt, 15) ?>
+                                    </p>
+                                    <a href="<?php the_permalink($post); ?>"
+                                        style="text-decoration:none; color:black; ">Read
+                                        More</a>
                                 </div>
                             </div>
                         </div>
+
 
                     </swiper-slide>
                     <?php endforeach; ?>
@@ -492,8 +497,8 @@ class We_Blocks
                             </div>
 
                             <!-- Bonus button -->
-                            <a class="btn btn-primary text-uppercase fw-bold my-2 text-decoration-none"
-                                href="<?= $bonus['link'] ?>">
+                            <a class="btn btn-primary text-uppercase fw-bold my-2 text-decoration-none WE_BLOCKS"
+                                href="<?= $bonus['link'] ?>" target="_blank">
                                 Get bonus
                             </a>
 
