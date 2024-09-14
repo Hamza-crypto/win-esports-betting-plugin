@@ -13,7 +13,7 @@ if (! defined('ABSPATH')) {
     die();
 }
 
-require_once plugin_dir_path(__FILE__) . '../vendor/autoload.php';
+require_once plugin_dir_path(__FILE__) . 'vendor/autoload.php';
 
 define('WE_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('WE_PLUGIN_URL', plugin_dir_url(__FILE__));
