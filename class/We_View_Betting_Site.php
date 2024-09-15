@@ -346,7 +346,7 @@ class We_View_Betting_Site
             </a>
 
             <a class="btn btn-primary text-uppercase mt-2 border-0 fw-semibold text-decoration-none"
-                href="<?= ! empty($bonus['link']) ? $bonus['link'] : '' ?>">
+                href="<?= ! empty($bonus['link']) ? $bonus['link'] : '' ?>" target="_blank">
 
                 <?= $betting_site->get_cta_label() ?>
 

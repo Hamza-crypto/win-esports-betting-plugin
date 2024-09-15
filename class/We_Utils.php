@@ -623,6 +623,12 @@ class We_Utils
         if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE)) {
             try {
                 $response = wp_remote_get(self::$geo_ip_api . $ip);
+
+                // Check if the response is a WP_Error
+                if (is_wp_error($response)) { // Added by Hamza to prevent error incase API does not responds
+                    return false; // Return false or handle it as needed
+                }
+
                 if ($response['response']['code'] == 200) {
                     $response_body = json_decode($response['body']);
                     $country_code  = $response_body->country;
