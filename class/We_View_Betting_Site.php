@@ -160,7 +160,7 @@ class We_View_Betting_Site
     <div class="col-12 col-sm-4 col-md-3 col-lg-2 col-xl-2">
 
         <div class="py-4 text-center rounded-1 position-relative"
-            style="background-color: <?= self::$logo_bg_color; ?>;">
+            style="background-color: <?= self::$logo_bg_color; ?>;" id="img_box">
 
             <img src="<?= self::$logo_src ?>" alt="<?= $betting_site->post->post_title ?>" class="img-fluid"
                 loading="lazy">
@@ -175,7 +175,7 @@ class We_View_Betting_Site
 
                     <div>
 
-                        <span class="fw-bold"><?= self::$ratings['overall'] ?></span>
+                        <span class="fw-bold" id="over_all_ratings"><?= self::$ratings['overall'] ?></span>
 
                         <span class="fw-normal">/ 5</span>
 
@@ -345,7 +345,7 @@ class We_View_Betting_Site
 
             </a>
 
-            <a class="btn btn-primary text-uppercase mt-2 border-0 fw-semibold text-decoration-none"
+            <a class="btn btn-primary text-uppercase mt-2 border-0 fw-semibold text-decoration-none" id="bet_now_btn"
                 href="<?= ! empty($bonus['link']) ? $bonus['link'] : '' ?>" target="_blank">
 
                 <?= $betting_site->get_cta_label() ?>
