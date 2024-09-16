@@ -230,13 +230,15 @@ class We_Widgets
                         </a>
 
                         <div class="ms-3">
-                            <!-- Post title -->
-                            <h3 class="mb-0">
-                                <?= $betting_site['post_title'] ?>
-                            </h3>
+                            <a href="<?= get_permalink($betting_site['post_id']) ?>"
+                                class="text-decoration-none text-black">
+                                <!-- Post title -->
+                                <h3 class="mb-0">
+                                    <?= $betting_site['post_title'] ?>
+                                </h3>
 
-                            <!-- Link under the title -->
-                            <a href="<?= get_permalink($betting_site['post_id']) ?>" class="text-black">
+                                <!-- Link under the title -->
+
                                 <?= $betting_site['post_title'] ?> review
                             </a>
                         </div>
@@ -524,12 +526,19 @@ class We_Widgets
 
         <div class="d-flex flex-row mb-5">
 
-            <div style="max-width: 200px; max-height: 150px;">
+            <a href="<?= get_permalink($post) ?>" class="text-decoration-none text-black">
 
-                <img src="<?= wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), 'full')[0] ?>"
-                    alt="<?= $post->post_title ?>" class="img-fluid" style="object-fit: fill; height:100%; width:100%">
+                <div style="max-width: 200px; max-height: 150px;">
 
-            </div>
+                    <img src="<?= wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), 'full')[0] ?>"
+                        alt="<?= $post->post_title ?>" class="img-fluid"
+                        style="object-fit: fill; height:100%; width:100%">
+
+                </div>
+
+            </a>
+
+
 
             <div class="ms-3">
 
