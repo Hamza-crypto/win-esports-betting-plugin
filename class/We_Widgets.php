@@ -242,7 +242,13 @@ class We_Widgets
                                 <?= $betting_site['post_title'] ?> review
                             </a>
                         </div>
-
+                        <style>
+                        @media (min-width: 991px) and (max-width: 1150px) {
+                            .ms-3 h3 {
+                                font-size: 0.9rem !important;
+                            }
+                        }
+                        </style>
                     </div>
 
                 </div>
@@ -397,7 +403,8 @@ class We_Widgets
                         <div class="ms-3">
 
                             <h3 class="mb-0 text-uppercase fs-6">
-                                <a href="<?= get_permalink($betting_site['post_id']) ?>" class="text-black">
+                                <a href="<?= get_permalink($betting_site['post_id']) ?>"
+                                    class="text-black text-decoration-none">
                                     <?= $betting_site['post_title'] ?> bonus
                                 </a>
                             </h3>
