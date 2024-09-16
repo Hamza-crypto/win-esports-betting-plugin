@@ -306,7 +306,7 @@ class We_View_Betting_Site
 
                     </div>
 
-                    <h3 class="text-uppercase text-uppercase mt-3">
+                    <h3 class="text-uppercase text-uppercase mt-3" id="bonus_title">
 
                         <?= $bonus['title'] ?>
 
