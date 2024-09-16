@@ -357,13 +357,18 @@ class We_Blocks
 
                         <!-- Each post as a swiper-slide -->
                         <div class=" card rounded-1 border-black w-100 mb-4">
-                            <div class="position-relative">
-                                <img src="<?= wp_get_attachment_image_src(get_post_thumbnail_id($post), 'full')[0] ?>"
-                                    alt="<?= $post->post_title ?>" class="img-fluid card-img-top">
-                                <div class="position-absolute bottom-0 text-bg-dark px-2 fs-08rem">
-                                    <?= get_the_date("", $post); ?>
+                            <a href="<?= get_permalink($post) ?>">
+                                <div class="position-relative">
+
+
+
+                                    <img src="<?= wp_get_attachment_image_src(get_post_thumbnail_id($post), 'full')[0] ?>"
+                                        alt="<?= $post->post_title ?>" class="img-fluid card-img-top">
+                                    <div class="position-absolute bottom-0 text-bg-dark px-2 fs-08rem">
+                                        <?= get_the_date("", $post); ?>
+                                    </div>
                                 </div>
-                            </div>
+                            </a>
                             <div class="card-body" style="height:200px;">
                                 <div class="card-title">
                                     <h3 class="fw-bold fs-5">
