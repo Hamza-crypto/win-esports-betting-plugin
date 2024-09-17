@@ -710,6 +710,14 @@ class We_Cpt_Betting_Site
 
                           ->set_options(We_Utils::$languages)
 
+                 ))
+
+                 ->add_tab('Restricted Countries', array(
+
+                     Field::make('multiselect', MetaKeys::restricted_countries_key(), 'Restricted Country')
+
+                          ->set_options(We_Utils::$countries)
+
                  ));
 
     }

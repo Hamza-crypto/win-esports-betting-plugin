@@ -1147,6 +1147,7 @@ class We_M_Betting_Site
                 }
                 switch ($meta_key) {
                     case '_' . MetaKeys::countries_key():
+                    case '_' . MetaKeys::restricted_countries_key(): // This will include restricted_countries meta fields value in result
                     case '_' . MetaKeys::available_languages_key():
                         $formatted_result[ $post_id ][ $meta_key ][] = $meta_value;
                         break;
@@ -1247,11 +1248,15 @@ class We_M_Betting_Site
         if (! empty($country_code) && $country_code != 'all') {
             $field            = '_' . MetaKeys::countries_key();
 
-            $formatted_result = array_filter($formatted_result, function ($item) use ($country_code, $field) {
-
-                // if ($item['post_id'] == '20751') {
-                //     dd($item[$field]);
+            $restricted_field = '_' . MetaKeys::restricted_countries_key();
+            $formatted_result = array_filter($formatted_result, function ($item) use ($country_code, $field, $restricted_field) {
+                // if ($item['post_id'] == '23435') {
+                //     dump(sprintf("Your country: %s", $country_code));
                 // }
+                // Check if restricted countries field exists and contains values
+                if (isset($item[$restricted_field]) && in_array($country_code, $item[$restricted_field])) {
+                    return false;  // Exclude if the country is restricted
+                }
                 return (in_array($country_code, $item[ $field ]) || in_array('DEFAULT', $item[ $field ]));
             });
 

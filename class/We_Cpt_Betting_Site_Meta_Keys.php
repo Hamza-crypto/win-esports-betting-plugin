@@ -353,6 +353,14 @@ class We_Cpt_Betting_Site_Meta_Keys
     }
 
 
+    public static function restricted_countries_key(): string
+    {
+
+        return self::$key_prefix . 'restricted_countries';
+
+    }
+
+
 
     /**
 
