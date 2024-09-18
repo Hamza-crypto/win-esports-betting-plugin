@@ -243,9 +243,9 @@ class We_Widgets
                             </a>
                         </div>
                         <style>
-                        @media (min-width: 991px) and (max-width: 1150px) {
+                        @media (min-width: 991px) and (max-width: 1220px) {
                             .ms-3 h3 {
-                                font-size: 0.9rem !important;
+                                font-size: 0.7rem !important;
                             }
                         }
                         </style>
