@@ -1180,7 +1180,21 @@ class We_View_Betting_Site
 
                                 <div class="ms-2">
 
-                                    <span class="fw-bold fs-5"><?= $ratings['overall'] ?></span>
+                                    <span class="fw-bold fs-5">
+                                        <?php
+
+if (!empty($ratings)) {
+    // Filter out non-numeric values to avoid errors
+    $numericRatings = array_filter($ratings, 'is_numeric');
+
+    if (count($numericRatings) > 0) {
+        // Calculate the average
+        $average = array_sum($numericRatings) / count($numericRatings);
+        echo number_format($average, 1);
+    }
+}
+            ?>
+                                    </span>
 
                                     <span class="fs-6"> / 5</span>
 
@@ -1196,57 +1210,57 @@ class We_View_Betting_Site
 
                             <?php
 
-                    $ratings_field_map = array(
+                                $ratings_field_map = array(
 
-                        'bonus_offer'          => array(
+                                    'bonus_offer'          => array(
 
-                            'label' => 'Bonus Offers & Free Bets',
+                                        'label' => 'Bonus Offers & Free Bets',
 
-                            'icon'  => 'review-icon-bonus.svg'
+                                        'icon'  => 'review-icon-bonus.svg'
 
-                        ),
+                                    ),
 
-                        'usability'            => array(
+                                    'usability'            => array(
 
-                            'label' => 'Usability, Look & Feel',
+                                        'label' => 'Usability, Look & Feel',
 
-                            'icon'  => 'review-icon-usability.svg'
+                                        'icon'  => 'review-icon-usability.svg'
 
-                        ),
+                                    ),
 
-                        'payment_methods'      => array(
+                                    'payment_methods'      => array(
 
-                            'label' => 'Payment Methods',
+                                        'label' => 'Payment Methods',
 
-                            'icon'  => 'review-icon-payment.svg'
+                                        'icon'  => 'review-icon-payment.svg'
 
-                        ),
+                                    ),
 
-                        'customer_service'     => array(
+                                    'customer_service'     => array(
 
-                            'label' => 'Customer Service',
+                                        'label' => 'Customer Service',
 
-                            'icon'  => 'review-icon-customer-service.svg'
+                                        'icon'  => 'review-icon-customer-service.svg'
 
-                        ),
+                                    ),
 
-                        'license_and_security' => array(
+                                    'license_and_security' => array(
 
-                            'label' => 'Licence & Security',
+                                        'label' => 'Licence & Security',
 
-                            'icon'  => 'review-icon-licensing.svg'
+                                        'icon'  => 'review-icon-licensing.svg'
 
-                        ),
+                                    ),
 
-                        'rewards_program_key'  => array(
+                                    'rewards_program_key'  => array(
 
-                            'label' => 'Rewards & Loyalty Program',
+                                        'label' => 'Rewards & Loyalty Program',
 
-                            'icon'  => 'review-icon-rewards.svg'
+                                        'icon'  => 'review-icon-rewards.svg'
 
-                        )
+                                    )
 
-                    );
+                                );
 
                                 ?>
 
