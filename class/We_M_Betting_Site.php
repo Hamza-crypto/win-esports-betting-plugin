@@ -1351,7 +1351,7 @@ class We_M_Betting_Site
 
         if (empty($args['sort_by']) || $args['sort_by'] == 'top') {
             usort($formatted_result, array( We_M_Betting_Site::class, 'sort_by_overall_rating_2' ));
-            usort($formatted_result, array( We_M_Betting_Site::class, 'sort_by_custom_display_order_2' ));
+            // usort($formatted_result, array( We_M_Betting_Site::class, 'sort_by_custom_display_order_2' ));
         }
 
 
@@ -1445,6 +1445,7 @@ class We_M_Betting_Site
      */
     public static function sort_by_overall_rating_2(array $a, array $b): int
     {
+
         if (! empty($b[ '_' . MetaKeys::rating_overall_key() ]) && ! empty($a[ '_' . MetaKeys::rating_overall_key() ])) {
             return $b[ '_' . MetaKeys::rating_overall_key() ] <=> $a[ '_' . MetaKeys::rating_overall_key() ];
         }
@@ -1465,4 +1466,16 @@ class We_M_Betting_Site
 
         return $a_display_order <=> $b_display_order;
     }
+
+
+    public function dump_id_and_one_more_field($items)
+    {
+        foreach (array_slice($items, 0, 5) as $item) {
+
+            $id = $item['id'] ?? 'N/A';
+            $rating = $item['_websf_rat_overall'] ?? 'N/A';  // Replace '_onbre_morte' with actual key
+            dump(['id' => $id, 'rating' => $rating]);
+        }
+    }
+
 }
