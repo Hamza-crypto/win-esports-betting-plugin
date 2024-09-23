@@ -585,14 +585,20 @@ class We_Utils
      *
      * @return float|int
      */
-    public static function round_up($value, $places = 0): float|int
+    public static function round_up($value, $places = 1): float
     {
+        // Ensure we round up to at least 0 or more decimal places
         if ($places < 0) {
             $places = 0;
         }
-        $mult = pow(10, $places);
+        $value_string = (string) $value;
 
-        return ceil($value * $mult) / $mult;
+        if (strpos($value_string, '.') !== false && strlen(explode('.', $value_string)[1]) > 1) {
+            // If it has more than one decimal place, apply rounding up
+            $mult = pow(10, $places);  // Multiply based on the number of places
+            return ceil($value * $mult) / $mult;
+        }
+        return $value;
     }
 
     /**

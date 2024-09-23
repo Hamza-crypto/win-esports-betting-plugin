@@ -33,6 +33,8 @@ class We_View_Betting_Site
 
     public static array $top_betting_sites;
 
+    public static $avg_rating;
+
 
 
     /**
@@ -76,6 +78,7 @@ class We_View_Betting_Site
 
         }
 
+        self::$avg_rating = get_post_meta($betting_site->post->ID, '_' . MetaKeys::rating_overall_key(), true);
     }
 
 
@@ -118,7 +121,7 @@ class We_View_Betting_Site
 
     height: 12px;
 
-    width: <?=(self::$ratings['overall'] / 5) * 100 ?>%;
+    width: <?=(self::$avg_rating / 5) * 100 ?>%;
 
     background-image: url("<?= WE_PLUGIN_URL . 'assets/icons/rating-star-golden.svg' ?>");
 
@@ -151,6 +154,11 @@ class We_View_Betting_Site
 
 </div>
 
+<?php
+
+// dd($betting_site->post->ID);
+
+        ?>
 <!-- Betting Site Summary -->
 
 <div class="row mt-4">
@@ -175,7 +183,7 @@ class We_View_Betting_Site
 
                     <div>
 
-                        <span class="fw-bold" id="over_all_ratings"><?= self::$ratings['overall'] ?></span>
+                        <span class="fw-bold" id="over_all_ratings"><?= self::$avg_rating ?></span>
 
                         <span class="fw-normal">/ 5</span>
 
@@ -1180,21 +1188,7 @@ class We_View_Betting_Site
 
                                 <div class="ms-2">
 
-                                    <span class="fw-bold fs-5">
-                                        <?php
-
-if (!empty($ratings)) {
-    // Filter out non-numeric values to avoid errors
-    $numericRatings = array_filter($ratings, 'is_numeric');
-
-    if (count($numericRatings) > 0) {
-        // Calculate the average
-        $average = array_sum($numericRatings) / count($numericRatings);
-        echo number_format($average, 1);
-    }
-}
-            ?>
-                                    </span>
+                                    <span class="fw-bold fs-5"><?= self::$avg_rating ?></span>
 
                                     <span class="fs-6"> / 5</span>
 
