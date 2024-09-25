@@ -1467,15 +1467,4 @@ class We_M_Betting_Site
         return $a_display_order <=> $b_display_order;
     }
 
-
-    public function dump_id_and_one_more_field($items)
-    {
-        foreach (array_slice($items, 0, 5) as $item) {
-
-            $id = $item['id'] ?? 'N/A';
-            $rating = $item['_websf_rat_overall'] ?? 'N/A';  // Replace '_onbre_morte' with actual key
-            dump(['id' => $id, 'rating' => $rating]);
-        }
-    }
-
 }

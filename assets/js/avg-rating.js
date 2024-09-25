@@ -39,6 +39,8 @@ jQuery.noConflict()(function ($) {
             $('input[type="number"]').on('blur', function () {
                 calculateAndSetOverallRating();
             });
+
+            calculateAndSetOverallRating();
             
 
         }, 5000); // 5000ms = 5 seconds
