@@ -1350,10 +1350,8 @@ class We_M_Betting_Site
         }
 
         if (empty($args['sort_by']) || $args['sort_by'] == 'top') {
-            usort($formatted_result, array( We_M_Betting_Site::class, 'sort_by_overall_rating_2' ));
-            // usort($formatted_result, array( We_M_Betting_Site::class, 'sort_by_custom_display_order_2' ));
+            usort($formatted_result, array(We_M_Betting_Site::class, 'sort_by_rating_and_display_order'));
         }
-
 
 
         $duplicates             = array();
@@ -1465,6 +1463,21 @@ class We_M_Betting_Site
         $b_display_order = $b[ '_' . MetaKeys::display_order_key() ] ?? 0;
 
         return $a_display_order <=> $b_display_order;
+    }
+
+    public static function sort_by_rating_and_display_order(array $a, array $b): int
+    {
+        // First, compare by overall rating
+        $rating_comparison = $b[ '_' . MetaKeys::rating_overall_key() ] <=> $a[ '_' . MetaKeys::rating_overall_key() ];
+
+        // If ratings are the same, compare by display order
+        if ($rating_comparison === 0) {
+            $a_display_order = $a[ '_' . MetaKeys::display_order_key() ] ?? 0;
+            $b_display_order = $b[ '_' . MetaKeys::display_order_key() ] ?? 0;
+            return $a_display_order <=> $b_display_order;
+        }
+
+        return $rating_comparison;
     }
 
 }
