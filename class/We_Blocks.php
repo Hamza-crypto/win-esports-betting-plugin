@@ -204,7 +204,7 @@ class We_Blocks
 
                      ?>
 
-        <div class="swiper">
+        <div class="swiper d-none">
             <div class="swiper-wrapper">
                 <!-- <div class="row"> -->
                 <swiper-container class="games_swiper" autoplay-delay="500" speed="2000" loop="true" space-between="20">
